@@ -1,8 +1,6 @@
 import allure
 from pages.main_page import MainPage
 from pages.order_page import OrderPage
-from locators import Locators
-from urls import Urls
 
 
 class TestOrderPage:
@@ -13,20 +11,15 @@ class TestOrderPage:
         main_page = MainPage(driver)
         order_page = OrderPage(driver)
         
-        main_page.click_on_element(Locators.ORDER_BUTTON)
-        total_orders_before = order_page.get_number_of_orders_created('total')
+        order_page.get_order_page()
+        total_orders_before = order_page.get_total_orders_count()
         
         main_page.get_main_page()
-        
-        if driver.name == 'firefox':
-            main_page.drag_ingredient_to_constructor_for_firefox(Locators.INGREDIENT, Locators.CONSTRUCTOR_DROP_AREA)
-        else:
-            main_page.drag_ingredient_to_constructor(Locators.INGREDIENT, Locators.CONSTRUCTOR_DROP_AREA)
-            
-        main_page.click_on_element(Locators.CREATE_ORDER_BUTTON)
+        main_page.drag_ingredient_to_constructor()
+        main_page.create_order()
         
         order_page.get_order_page()
-        total_orders_after = order_page.get_number_of_orders_created('total')
+        total_orders_after = order_page.get_total_orders_count()
         
         assert total_orders_after > total_orders_before
 
@@ -36,20 +29,15 @@ class TestOrderPage:
         main_page = MainPage(driver)
         order_page = OrderPage(driver)
         
-        main_page.click_on_element(Locators.ORDER_BUTTON)
-        today_orders_before = order_page.get_number_of_orders_created('today')
+        order_page.get_order_page()
+        today_orders_before = order_page.get_today_orders_count()
         
         main_page.get_main_page()
-        
-        if driver.name == 'firefox':
-            main_page.drag_ingredient_to_constructor_for_firefox(Locators.INGREDIENT, Locators.CONSTRUCTOR_DROP_AREA)
-        else:
-            main_page.drag_ingredient_to_constructor(Locators.INGREDIENT, Locators.CONSTRUCTOR_DROP_AREA)
-            
-        main_page.click_on_element(Locators.CREATE_ORDER_BUTTON)
+        main_page.drag_ingredient_to_constructor()
+        main_page.create_order()
         
         order_page.get_order_page()
-        today_orders_after = order_page.get_number_of_orders_created('today')
+        today_orders_after = order_page.get_today_orders_count()
         
         assert today_orders_after > today_orders_before
 
@@ -59,19 +47,17 @@ class TestOrderPage:
         main_page = MainPage(driver)
         order_page = OrderPage(driver)
         
-        main_page.click_on_element(Locators.ORDER_BUTTON)
-        orders_in_progress_before = order_page.get_number_of_orders_in_progress()
+        order_page.get_order_page()
+        orders_in_progress_before = order_page.get_orders_in_progress_count()
         
         main_page.get_main_page()
-        
-        if driver.name == 'firefox':
-            main_page.drag_ingredient_to_constructor_for_firefox(Locators.INGREDIENT, Locators.CONSTRUCTOR_DROP_AREA)
-        else:
-            main_page.drag_ingredient_to_constructor(Locators.INGREDIENT, Locators.CONSTRUCTOR_DROP_AREA)
-            
-        main_page.click_on_element(Locators.CREATE_ORDER_BUTTON)
+        main_page.drag_ingredient_to_constructor()
+        main_page.create_order()
+        order_number = main_page.get_order_number()
         
         order_page.get_order_page()
-        orders_in_progress_after = order_page.get_number_of_orders_in_progress()
+        orders_in_progress_after = order_page.get_orders_in_progress_count()
+        last_order = order_page.get_last_order_in_progress()
         
         assert orders_in_progress_after > orders_in_progress_before
+        assert order_number in last_order

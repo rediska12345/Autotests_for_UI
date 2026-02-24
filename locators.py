@@ -15,6 +15,8 @@ class Locators:
     INGREDIENT_WINDOW_CLOSE_BUTTON = (By.XPATH, "//button[contains(@class, 'Modal_modal__close')]")
     CONSTRUCTOR_DROP_AREA = (By.XPATH, "//section[contains(@class, 'BurgerConstructor')]")
     CREATE_ORDER_BUTTON = (By.XPATH, '//button[text()="Оформить заказ"]')
+    ORDER_CONFIRMATION_WINDOW = (By.XPATH, "//section[contains(@class, 'Modal_modal')]//h2")
+    ORDER_NUMBER = (By.XPATH, "//section[contains(@class, 'Modal_modal')]//h2")
     
     # Локаторы страницы заказов
     ORDER_PAGE_HEADER = (By.XPATH, '//h1[text()="Лента заказов"]')

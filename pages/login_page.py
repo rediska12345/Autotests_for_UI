@@ -15,11 +15,6 @@ class LoginPage(BasePage):
     def user_login(self):
         self.enter_data(Locators.LOGIN_EMAIL, Credentials.EMAIL)
         self.enter_data(Locators.LOGIN_PASSWORD, Credentials.PASSWORD)
-        import time
-        time.sleep(1)
-        if self.driver.name == 'firefox':
-            self.click_with_js(Locators.LOGIN_BUTTON)
-        else:
-            self.click_on_element(Locators.LOGIN_BUTTON)
-            
-        self.wait_for_element_visibility(Locators.INGREDIENT)
+        self.click_on_element(Locators.LOGIN_BUTTON)
+        # Ждем успешной авторизации
+        self.wait_for_element_visibility(Locators.CREATE_ORDER_BUTTON)
